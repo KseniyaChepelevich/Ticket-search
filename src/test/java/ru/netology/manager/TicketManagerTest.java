@@ -31,7 +31,29 @@ class TicketManagerTest {
 
 
     @Test
-    public void search() {
+    public void shouldSearch3TicketsOutOf5WithTheSameAirportNames() {
+        String fromAirport = "DME";
+        String toAirport = "LED";
+
+        manager.add(fromPiterToMoscowMorningLEDDME);
+        manager.add(fromMoscowToPiterEveningDMELED2);
+        manager.add(fromPiterToMoscowEveningLEDDME);
+        manager.add(fromMoscowToPiterMorningDMELED);
+        manager.add(fromMoscowToPiterEveningDMELED);
+
+
+
+
+        Ticket[] expected = new Ticket[]{fromMoscowToPiterMorningDMELED, fromMoscowToPiterEveningDMELED, fromMoscowToPiterEveningDMELED2};
+        Ticket[] actual = manager.search(fromAirport, toAirport);
+
+        Arrays.sort(actual);
+
+        assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldSearch3TicketsOutOf7() {
         String fromAirport = "DME";
         String toAirport = "LED";
 
@@ -52,11 +74,44 @@ class TicketManagerTest {
     }
 
     @Test
-    public void shouldAddedOneTicket(){
+    public void shouldSearch1TicketsOutOf7(){
+        String fromAirport = "SVO";
+        String toAirport = "LED";
+
         manager.add(fromMoscowToPiterMorningSVOLED);
+        manager.add(fromMoscowToPiterMorningDMELED);
+        manager.add(fromMoscowToPiterEveningDMELED);
+        manager.add(fromMoscowToPiterEveningDMELED2);
+        manager.add(fromPiterToMoscowEveningLEDDME);
+        manager.add(fromPiterToMoscowMorningLEDDME);
+        manager.add(FromMoscowToKazanMorningDMEKZN);
 
         Ticket[] expected = new Ticket[]{fromMoscowToPiterMorningSVOLED};
-        Ticket[] actual = manager.getAll();
+        Ticket[] actual = manager.search(fromAirport, toAirport);
+
+        Arrays.sort(actual);
+
+        assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldSearchTicketsThatAreNot() {
+        String fromAirport = "SVO";
+        String toAirport = "KZN";
+
+        manager.add(fromMoscowToPiterMorningSVOLED);
+        manager.add(fromMoscowToPiterMorningDMELED);
+        manager.add(fromMoscowToPiterEveningDMELED);
+        manager.add(fromMoscowToPiterEveningDMELED2);
+        manager.add(fromPiterToMoscowEveningLEDDME);
+        manager.add(fromPiterToMoscowMorningLEDDME);
+        manager.add(FromMoscowToKazanMorningDMEKZN);
+
+        Ticket[] expected = new Ticket[]{};
+        Ticket[] actual = manager.search(fromAirport, toAirport);
+
+        Arrays.sort(actual);
+
         assertArrayEquals(expected, actual);
     }
 
