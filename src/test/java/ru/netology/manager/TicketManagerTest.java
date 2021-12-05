@@ -5,12 +5,14 @@ import ru.netology.domain.Ticket;
 import ru.netology.repository.TicketRepository;
 
 import java.util.Arrays;
+import java.util.Comparator;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class TicketManagerTest {
     private TicketRepository repository = new TicketRepository();
     private TicketManager manager = new TicketManager(repository);
+
 
     private Ticket fromMoscowToPiterMorningSVOLED = new Ticket(1, 1200, "SVO", "LED", 75);
     private Ticket fromMoscowToPiterMorningVKOLED = new Ticket(2, 1500, "VKO", "LED", 90);
@@ -47,7 +49,7 @@ class TicketManagerTest {
         Ticket[] expected = new Ticket[]{fromMoscowToPiterMorningDMELED, fromMoscowToPiterEveningDMELED, fromMoscowToPiterEveningDMELED2};
         Ticket[] actual = manager.search(fromAirport, toAirport);
 
-        Arrays.sort(actual);
+
 
         assertArrayEquals(expected, actual);
     }
@@ -68,7 +70,7 @@ class TicketManagerTest {
         Ticket[] expected = new Ticket[]{fromMoscowToPiterMorningDMELED, fromMoscowToPiterEveningDMELED, fromMoscowToPiterEveningDMELED2};
         Ticket[] actual = manager.search(fromAirport, toAirport);
 
-        Arrays.sort(actual);
+
 
         assertArrayEquals(expected, actual);
     }
@@ -89,7 +91,7 @@ class TicketManagerTest {
         Ticket[] expected = new Ticket[]{fromMoscowToPiterMorningSVOLED};
         Ticket[] actual = manager.search(fromAirport, toAirport);
 
-        Arrays.sort(actual);
+
 
         assertArrayEquals(expected, actual);
     }
@@ -110,9 +112,13 @@ class TicketManagerTest {
         Ticket[] expected = new Ticket[]{};
         Ticket[] actual = manager.search(fromAirport, toAirport);
 
-        Arrays.sort(actual);
+
 
         assertArrayEquals(expected, actual);
     }
+
+
+
+
 
 }
